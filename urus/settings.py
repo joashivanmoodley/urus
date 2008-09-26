@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 #DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
 #DATABASE_NAME = 'urus'             # Or path to database file if using sqlite3.
-DATABASE_NAME = 'D:/workspace/python/django/urus/database.db'             # Or path to database file if using sqlite3.
+DATABASE_NAME = 'D:/workspace/opensource/urus/database.db'             # Or path to database file if using sqlite3.
 #DATABASE_USER = 'root'             # Not used with sqlite3.
 #DATABASE_PASSWORD = 'Iamallgood'         # Not used with sqlite3.
 #DATABASE_HOST = 'localhost'             # Set to empty string for localhost. Not used with sqlite3.
@@ -76,7 +76,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #'D:/workspace/python/django/urus/admin/templates',
-    'D:/workspace/python/django/urus/templates',
+    'D:/workspace/opensource/urus/templates',
 )
 
 INSTALLED_APPS = (
