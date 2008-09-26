@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>hello world</title>
+    <meta http-equiv = "content-type" content = "text/html; charset=gb2312" />
+    <link rel="stylesheet" type="text/css" href="/site_media/css/ext-all.css" />
+    <script type="text/javascript" src="/site_media/js/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="/site_media/js/ext-all.js"></script>
+    <script type="text/javascript" src="/site_media/js/main.js"></script>
+    <script type="text/javascript" src="/site_media/js/main_frame.js"></script>
+    <style type="text/css">
+	html, body {
+        font:normal 12px verdana;
+        margin:0;
+        padding:0;
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
+	p {
+	    margin:5px;
+	}
+    .settings {
+        background-image:url(../shared/icons/fam/folder_wrench.png);
+    }
+    .nav {
+        background-image:url(../shared/icons/fam/folder_go.png);
+    }
+    </style>
+    <script type="text/javascript">
+     Ext.onReady(function(){
+       // shorthand
+      var m_mainFrame=new mainFrame();
+      m_mainFrame.show();
+     });
+    </script>
+    
+  </head>
+  <body>
+     <div id='top_div'>
+       <p>Weclome</p>
+     </div>
+     <div id='name_menu_div'></div> 
+     <div id="content_div"></div>
+  </body>
+</html>

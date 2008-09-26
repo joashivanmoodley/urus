@@ -1,0 +1,9 @@
+[default]
+projectname = ReST,python,
+
+[acp]
+.txt = rst.acp,
+
+[highlight]
+.txt = rst
+
