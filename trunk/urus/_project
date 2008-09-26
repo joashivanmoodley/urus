@@ -1,0 +1,11 @@
+[default]
+projectname = ReST,django,python,
+
+[acp]
+.txt = rst.acp,
+.html = html.acp,django_html.acp,
+
+[highlight]
+.txt = rst
+.html = djangotmp
+
