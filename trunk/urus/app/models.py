@@ -2,6 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+
+class CustomerMgr(models.Manager):
+  def add_or_update_customer(self,id,name,gender,office_phone=None,mobile_phone1=None,mobile_phone2=None,email=None):  
+    customer=self.model(id,name,gender,office_phone,mobile_phone1,mobile_phone2,email)
+    customer.save()
+    return customer
+    
+
 class Customer(models.Model):
   GENDER_CHOICES = (('M', 'Male'),('F', 'Female'),)  
   name=models.CharField(max_length=50)
@@ -10,9 +18,11 @@ class Customer(models.Model):
   mobile_phone1=models.CharField(max_length=50,blank=True)
   mobile_phone2=models.CharField(max_length=50,blank=True)
   email=models.CharField(max_length=255,blank=True)
-  
+  objects=CustomerMgr()
   class Meta:
     ordering=['name']
+  
+  
   
   
 class Company(models.Model):

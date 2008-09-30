@@ -4,8 +4,18 @@ urlpatterns = patterns('',
     (r'^$', 'urus.app.views.desktop'),
     (r'old/$', 'urus.app.views.main'),
     (r'^category/$','urus.app.views.category'),
-    (r'test/$','urus.app.views.content'),
     (r'^json/$','urus.app.views.json'),
+    
     (r'^main_frame/$','urus.app.views.main_frame'),
+    
+    #json 
+    (r'getAllCustomer/$','urus.app.views.getAllCustomer'),
+    (r'addOrUpdateCustomer/$','urus.app.views.addOrUpdateCustomer'),
+    (r'updateCustomer/$','urus.app.views.updateCustomer'),
+    
+    
+    #for test url
+    
+    (r'^test/$','urus.app.views.test'),
     
 )
