@@ -34,7 +34,8 @@ var getWin=function(titleText,config){
       frame:true,
       buttonAlign:'right',
       items:[
-        { xtype:'textfield', fieldLabel:'姓名',disabled:v?true:false,value:v?v.name:''},
+        { xtype:'hidden',id:'new-customer-id',value:v?v.id:''},
+        { xtype:'textfield',id:'new-name', fieldLabel:'姓名',disabled:v?true:false,value:v?v.name:''},
         { 
           xtype:'combo',
           fieldLabel:'性别',
@@ -43,7 +44,7 @@ var getWin=function(titleText,config){
             data:[['M','男'],['F','女']]
           }
           ),
-          id:'gender-combo',
+          id:'new-gender-combo',
           mode: 'local',
           triggerAction: 'all',
           displayField:'des',
@@ -54,15 +55,15 @@ var getWin=function(titleText,config){
           disabled:v?true:false,
           value:v?v.gender:'M'
         },
-        { xtype:'textfield', fieldLabel:'办公室电话',disabled:v?true:false,value:v?v.op:''},
-        { xtype:'textfield', fieldLabel:'移动电话1',disabled:v?true:false,value:v?v.mp:''},
-        { xtype:'textfield', fieldLabel:'移动电话2',disabled:v?true:false,value:v?v.mp2:''},
-        { xtype:'textfield', fieldLabel:'电子邮件',disabled:v?true:false,value:v?v.em:''},
+        { xtype:'textfield', id:'new-op',  fieldLabel:'办公室电话',value:v?v.op:''},
+        { xtype:'textfield', id:'new-mp1', fieldLabel:'移动电话1',value:v?v.mp:''},
+        { xtype:'textfield', id:'new-mp2', fieldLabel:'移动电话2',value:v?v.mp2:''},
+        { xtype:'textfield', id:'new-em', fieldLabel:'电子邮件',value:v?v.em:''},
         
       ]
     });
     dlg.add(fm);
-    dlg.addButton('确定');
+    dlg.addButton({text:'确定',handler:addOrUpdateCustomer});
     dlg.addButton("取消",function(){
     dlg.close();
     });
@@ -71,7 +72,7 @@ var getWin=function(titleText,config){
     console.log('#'+el.id+' input[type!=hidden]');
     var all=Ext.DomQuery.select('#ext-comp-1025 input[type!=hidden]'); 
     console.log('all size :'+all.length);
-      Ext.each(all,function(o,i,all){ //遍历并添加enter的监听
+    Ext.each(all,function(o,i,all){ //遍历并添加enter的监听
             Ext.get(o).addKeyMap({
                 key : 13,
                 fn : function() {
@@ -79,9 +80,36 @@ var getWin=function(titleText,config){
                     return true;
                 }
             })
-      });
-    Ext.getCmp('gender-combo').setSize(127);
+    });
+    Ext.getCmp('new-gender-combo').setSize(127);
   };
+  
+  addOrUpdateCustomer=function(){
+    para={};
+    var cId=Ext.get('new-customer-id').getValue();
+    para.id=cId
+    para.name=Ext.get('new-name').getValue();
+    para.gender=Ext.getCmp('new-gender-combo').getValue();
+    para.op=Ext.get('new-op').getValue();
+    para.mp1=Ext.get('new-mp1').getValue();
+    para.mp2=Ext.get('new-mp2').getValue();
+    para.em=Ext.get('new-em').getValue();
+    Ext.Ajax.request({
+    			url : 'addOrUpdateCustomer/', 
+    			params : para,
+    			method: 'POST',
+    			success: function ( result, request) { 
+            // popup success info
+            dlg.close();
+            gd.store.load();
+    			},
+    			failure: function ( result, request) { 
+    				var ew=window.open();
+            ew.document.write(result.responseText);
+    			} 
+    		});
+  }
+
 
 //public 
 return {
@@ -99,7 +127,7 @@ return {
          {name:'mobile_phone2'},
          {name:'email'}
         ]),
-      proxy:new Ext.data.HttpProxy({url:'json/',method:'GET'})                        
+      proxy:new Ext.data.HttpProxy({url:'getAllCustomer/',method:'GET'})                        
       });
       
     var pagingBar = new Ext.PagingToolbar({
@@ -168,7 +196,6 @@ return {
     }else{
       alert('请选择记录');
     }
-    
   },
 
   
