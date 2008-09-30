@@ -42,7 +42,10 @@ class NetBar(models.Model):
   name=models.CharField(max_length=255,unique=True)
   sort_name = models.CharField(max_length=20,blank=True)
   company = models.ForeignKey(Company)
+  link_man=models.ForeignKey(Customer)
+  disable=models.CharField(max_length=1, default='N')
   address=models.CharField(max_length=1000)
+  
   def __unicode__(self):
     return self.name
   
