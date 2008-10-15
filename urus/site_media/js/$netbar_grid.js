@@ -1,6 +1,10 @@
 ﻿NetBarGrid=function(){
   var dlg,gd;
   
+  createNetBar=function(){
+    var win=NetBarWin();
+    win.show();
+  }
   
   //public
   return {
@@ -50,18 +54,18 @@
         //autoExpandColumn:'company',
 
         tbar:[{
-            text:'添加客户',
-            tooltip:'添加一个新的客户',
+            text:'添加新网吧',
+            tooltip:'添加一个新的网吧信息',
             iconCls:'add',
-            //handler:this.showAddDlg
+            handler:createNetBar
         }, '-', {
             text:'属性',
             tooltip:'查看当前记录的属性',
             iconCls:'option',
             //handler:this.showOptDlg
         },'-',{
-            text:'删除客户',
-            tooltip:'删除当前选中的客户',
+            text:'删除网吧',
+            tooltip:'删除当前选中的网吧',
             iconCls:'remove'
         }],
         bbar:pagingBar
