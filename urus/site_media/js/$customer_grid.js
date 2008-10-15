@@ -31,9 +31,6 @@ var getWin=function(id,titleText,config){
         {text:'取消',handler:function(){_win.close();}}
       ]
     });
-    _win.on({
-      'show':{fn:function(){_redrawShaodw(id);}}
-    });
   }
   return _win;
 };
@@ -76,8 +73,8 @@ var getWin=function(id,titleText,config){
       ]
     });
     dlg.add(fm);
+    
     dlg.show();
-    dlg.fireEvent('move',this);
     console.log('#'+el.id+' input[type!=hidden]');
     var all=Ext.DomQuery.select('#ext-comp-1025 input[type!=hidden]'); 
     console.log('all size :'+all.length);
@@ -91,6 +88,7 @@ var getWin=function(id,titleText,config){
             })
     });
     Ext.getCmp('new-gender-combo').setSize(127);
+    dlg.syncShadow();
   };
   
   addOrUpdateCustomer=function(){
