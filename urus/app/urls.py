@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     (r'addOrUpdateCustomer/$','urus.app.views.addOrUpdateCustomer'),
     (r'updateCustomer/$','urus.app.views.updateCustomer'),
     
+    (r'getAllNetBar/$','urus.app.views.getAllNetBar'),
+    
     
     #for test url
     
