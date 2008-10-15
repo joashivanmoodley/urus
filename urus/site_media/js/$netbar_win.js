@@ -3,7 +3,8 @@
   var _win = desktop.getWindow('netbar-win');
   if(!_win){
     var panel=new NetBarFormPanel();
-    _win=desktop.createWindow({
+    //_win=desktop.createWindow({
+    _win=new Ext.Window({
       title:'添加新网吧',
       id:'netbar-win',
       autoWidth:true,
@@ -15,15 +16,16 @@
       stateful:false,
       resizable:false,
       minimizable : false,
+      manager:desktop.getManager(),
       modal: true,
       items:[
         panel
+      ],
+      buttons:[
+        {text:'确定'},
+        {text:'取消',handler:function(){_win.close();}}
       ]
     });
-    _win.addButton({text:'确定'});
-    _win.addButton("取消",function(){
-    _win.close();
-  });
   }
   return _win;
 }

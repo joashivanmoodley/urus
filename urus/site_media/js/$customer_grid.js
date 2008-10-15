@@ -6,7 +6,7 @@ var getWin=function(id,titleText,config){
   var _win=desktop.getWindow(id);
   if(!_win){
     var cfg=config||{};
-    _win=desktop.createWindow({
+    _win=new Ext.Window({
       autoCreate : true,
       id:id,
       title:titleText,
@@ -24,10 +24,15 @@ var getWin=function(id,titleText,config){
       minHeight: 80,
       plain:false,
       closable:true,
+      manager:desktop.getManager(),
+      shadow:true,
       buttons:[
         {text:'确定',handler:addOrUpdateCustomer},
         {text:'取消',handler:function(){_win.close();}}
       ]
+    });
+    _win.on({
+      'show':{fn:function(){_redrawShaodw(id);}}
     });
   }
   return _win;
@@ -72,6 +77,7 @@ var getWin=function(id,titleText,config){
     });
     dlg.add(fm);
     dlg.show();
+    dlg.fireEvent('move',this);
     console.log('#'+el.id+' input[type!=hidden]');
     var all=Ext.DomQuery.select('#ext-comp-1025 input[type!=hidden]'); 
     console.log('all size :'+all.length);
