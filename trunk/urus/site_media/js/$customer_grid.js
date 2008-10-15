@@ -1,10 +1,14 @@
 ﻿CustomerGrid=function(){
     var dlg,gd;
 //private function
-var getWin=function(titleText,config){
+var getWin=function(id,titleText,config){
+  var desktop=MyDesktop.desktop;
+  var _win=desktop.getWindow(id);
+  if(!_win){
     var cfg=config||{};
-    var c_dlg=new Ext.Window({
+    _win=desktop.createWindow({
       autoCreate : true,
+      id:id,
       title:titleText,
       resizable:false,
       constrain:true,
@@ -18,15 +22,19 @@ var getWin=function(titleText,config){
       autoWidth:true,
       autoHeight:true,
       minHeight: 80,
-      plain:true,
-      footer:true,
-      closable:true
+      plain:false,
+      closable:true,
+      buttons:[
+        {text:'确定',handler:addOrUpdateCustomer},
+        {text:'取消',handler:function(){_win.close();}}
+      ]
     });
-    return c_dlg;
+  }
+  return _win;
 };
 
-  var getDlg=function(name,el,v){
-    dlg=getWin(name);
+  var getDlg=function(winId,name,el,v){
+    dlg=getWin(winId,name);
     var fm=new Ext.form.FormPanel({
       //border:false,
       autoWidth:true,
@@ -63,11 +71,6 @@ var getWin=function(titleText,config){
       ]
     });
     dlg.add(fm);
-    dlg.addButton({text:'确定',handler:addOrUpdateCustomer});
-    dlg.addButton("取消",function(){
-    dlg.close();
-    });
-    //dlg.render(document.body);
     dlg.show();
     console.log('#'+el.id+' input[type!=hidden]');
     var all=Ext.DomQuery.select('#ext-comp-1025 input[type!=hidden]'); 
@@ -178,7 +181,7 @@ return {
   },
   
   showAddDlg:function(){
-    return getDlg('添加新客户',this.el);
+    return getDlg('create-new-customer-win','添加新客户',this.el);
   },
   showOptDlg:function(){
     var selectionModel = gd.getSelectionModel();
@@ -192,7 +195,7 @@ return {
       v.mp=r.get('mobile_phone1'),
       v.mp2=r.get('mobile_phone2'),
       v.em=r.get('email')
-      return getDlg('客户属性',this.el,v);
+      return getDlg('customer-option-win','客户属性',this.el,v);
     }else{
       alert('请选择记录');
     }
