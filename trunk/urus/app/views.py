@@ -44,10 +44,14 @@ def addOrUpdateCustomer(request):
     newCustomer=Customer.objects.add_or_update_customer(id,name,gender,op,mp1,mp2,em)
   return HttpResponse('ok')
 
+
+def getAllNetBar(request):
+  return render_jsonResponse(NetBar.objects.all())
+
 def main_frame(request):
   return render_to_response('app/main_frame.html')
-  
-  
+
+
 def content(request):
   return render_to_response('app/content.html')
 
