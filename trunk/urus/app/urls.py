@@ -1,23 +1,23 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('',
-    (r'^$', 'urus.app.views.desktop'),
-    (r'old/$', 'urus.app.views.main'),
-    (r'^category/$','urus.app.views.category'),
-    (r'^json/$','urus.app.views.json'),
+urlpatterns = patterns('urus.app.views',
+    (r'^$', 'desktop'),
+    (r'old/$', 'main'),
+    (r'^category/$','category'),
+    (r'^json/$','json'),
     
-    (r'^main_frame/$','urus.app.views.main_frame'),
+    (r'^main_frame/$','main_frame'),
     
     #json 
-    (r'getAllCustomer/$','urus.app.views.getAllCustomer'),
-    (r'addOrUpdateCustomer/$','urus.app.views.addOrUpdateCustomer'),
-    (r'updateCustomer/$','urus.app.views.updateCustomer'),
+    (r'getAllCustomer/$','getAllCustomer'),
+    (r'addOrUpdateCustomer/$','addOrUpdateCustomer'),
+    (r'updateCustomer/$','updateCustomer'),
     
-    (r'getAllNetBar/$','urus.app.views.getAllNetBar'),
-    
+    (r'getAllNetBar/$','getAllNetBar'),
+    (r'addOrUpdateNetbar/$','addOrUpdateNetbar'),
     
     #for test url
     
-    (r'^test/$','urus.app.views.test'),
+    (r'^test/$','test'),
     
 )
