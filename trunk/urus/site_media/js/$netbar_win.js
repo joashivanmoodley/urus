@@ -36,6 +36,8 @@ NetBarWin=function(cfg){
 NetbarFn={};
 NetbarFn.addOrupdateNetbar=function(){
   para={};
+  var all=Ext.query('.netbar-filed','netbar-win-form');
+  console.log('size '+all.length);
   Ext.Ajax.request({
   	url : 'addOrUpdateNetbar/', 
   	params : para,
@@ -70,6 +72,7 @@ NetBarFormPanel=function(cfg){
     editable:false,
     id:'netbar-cmp-name-combox',
     mode: 'local',
+    cls:'netbar-filed',
     forceSelection: true,
     triggerAction: 'all',
     emptyText:'请选择...',
@@ -93,11 +96,11 @@ NetBarFormPanel=function(cfg){
         defaults: {width: 210},
         defaultType: 'textfield',
         items:[
-          { xtype:'textfield', id:'netbar-name',  fieldLabel:'网吧名称'},
-          { xtype:'textfield', id:'netbar-short-name',  fieldLabel:'网吧简称'},
+          { xtype:'textfield', id:'netbar-name',  fieldLabel:'网吧名称',cls:'netbar-filed'},
+          { xtype:'textfield', id:'netbar-short-name',  fieldLabel:'网吧简称',cls:'netbar-filed'},
           combo,
-          { xtype:'textfield', id:'netbar-scale',  fieldLabel:'规模'},
-          { xtype:'textfield', id:'netbar-address',  fieldLabel:'网吧地址'},
+          { xtype:'textfield', id:'netbar-scale',  fieldLabel:'规模',cls:'netbar-filed'},
+          { xtype:'textfield', id:'netbar-address',  fieldLabel:'网吧地址',cls:'netbar-filed'},
           
         ]
       },{
@@ -112,9 +115,9 @@ NetBarFormPanel=function(cfg){
         defaultType: 'textfield',
         items:[
           //{ xtype:'checkbox', id:'is-new-cmp-chk',  fieldLabel:'新建公司',handler:this.doNewCmp},
-          { xtype:'textfield', id:'company-name',  fieldLabel:'公司名称'},
-          { xtype:'textfield', id:'company-address',  fieldLabel:'公司地址'},
-          { xtype:'textfield', id:'company-linkman',  fieldLabel:'联系人'},
+          { xtype:'textfield', id:'company-name',  fieldLabel:'公司名称',cls:'netbar-filed'},
+          { xtype:'textfield', id:'company-address',  fieldLabel:'公司地址',cls:'netbar-filed'},
+          { xtype:'textfield', id:'company-linkman',  fieldLabel:'联系人',cls:'netbar-filed'},
         ],
         listeners:{
           collapse:{
