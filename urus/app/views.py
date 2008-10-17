@@ -48,6 +48,11 @@ def addOrUpdateCustomer(request):
 def getAllNetBar(request):
   return render_jsonResponse(NetBar.objects.all())
 
+def addOrUpdateNetbar(request):
+  if request.method=='POST':
+      pass
+  return HttpResponse('ok')
+  
 def main_frame(request):
   return render_to_response('app/main_frame.html')
 
