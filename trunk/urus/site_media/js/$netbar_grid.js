@@ -9,6 +9,9 @@
   //public
   return {
     getGrid:function(){
+      if(gd){
+        return gd; 
+      }
       var ds=new Ext.data.GroupingStore({
       reader: new Ext.data.JsonReader({
         totalProperty:'totalCount',

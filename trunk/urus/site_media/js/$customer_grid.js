@@ -35,7 +35,7 @@ var getWin=function(id,titleText,config){
   return _win;
 };
 
-  var getDlg=function(winId,name,el,v){
+  var getDlg=function(winId,name,v){
     dlg=getWin(winId,name);
     var fm=new Ext.form.FormPanel({
       //border:false,
@@ -75,9 +75,7 @@ var getWin=function(id,titleText,config){
     dlg.add(fm);
     
     dlg.show();
-    console.log('#'+el.id+' input[type!=hidden]');
-    var all=Ext.DomQuery.select('#ext-comp-1025 input[type!=hidden]'); 
-    console.log('all size :'+all.length);
+    var all=Ext.DomQuery.select('#'+winId+' input[type!=hidden]'); 
     Ext.each(all,function(o,i,all){ //遍历并添加enter的监听
             Ext.get(o).addKeyMap({
                 key : 13,
@@ -185,7 +183,7 @@ return {
   },
   
   showAddDlg:function(){
-    return getDlg('create-new-customer-win','添加新客户',this.el);
+    return getDlg('create-new-customer-win','添加新客户');
   },
   showOptDlg:function(){
     var selectionModel = gd.getSelectionModel();
@@ -199,7 +197,7 @@ return {
       v.mp=r.get('mobile_phone1'),
       v.mp2=r.get('mobile_phone2'),
       v.em=r.get('email')
-      return getDlg('customer-option-win','客户属性',this.el,v);
+      return getDlg('customer-option-win','客户属性',v);
     }else{
       alert('请选择记录');
     }
