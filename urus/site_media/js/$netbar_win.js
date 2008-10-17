@@ -1,6 +1,9 @@
-﻿NetBarWin=function(cfg){
+﻿
+
+NetBarWin=function(cfg){
   var desktop=MyDesktop.desktop;
   var _win = desktop.getWindow('netbar-win');
+  
   if(!_win){
     var panel=new NetBarFormPanel();
     //_win=desktop.createWindow({
@@ -22,12 +25,31 @@
         panel
       ],
       buttons:[
-        {text:'确定'},
+        {text:'确定',handler:NetbarFn.addOrupdateNetbar},
         {text:'取消',handler:function(){_win.close();}}
       ]
     });
   }
-  return _win;
+  return _win;  
+}
+
+NetbarFn={};
+NetbarFn.addOrupdateNetbar=function(){
+  para={};
+  Ext.Ajax.request({
+  	url : 'addOrUpdateNetbar/', 
+  	params : para,
+  	method: 'POST',
+  	success: function ( result, request) { 
+      // popup success info
+      Ext.getCmp('netbar-win').close();
+      NetBarGrid.getGrid().store.load();
+  	},
+  	failure: function ( result, request) { 
+  		var ew=window.open();
+      ew.document.write(result.responseText);
+  	} 
+  });
 }
 
 
