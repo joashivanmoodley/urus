@@ -58,3 +58,4 @@ def init_urus():
     #_init_class_data(Customer)
     _init_company(i)
     _init_netBar(i)
+
