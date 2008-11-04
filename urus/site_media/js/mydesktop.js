@@ -6,7 +6,8 @@
 	getModules : function(){
 		return [
 			new MyDesktop.CustomerMgrWindow(),
-      new MyDesktop.NetBarMgrWindow()
+      new MyDesktop.NetBarMgrWindow(),
+	  new MyDesktop.DownloadMgrWindow()
 		];
 	},
 
@@ -64,7 +65,7 @@ MyDesktop.NetBarMgrWindow=Ext.extend(Ext.app.Module,{
 });
 
 
-MyDesktop.CustomerMgrWindow = Ext.extend(Ext.app.Module, {
+MyDesktop.DownloadMgrWindow = Ext.extend(Ext.app.Module, {
     id:'cm-win',
     key:{key:Ext.EventObject.C,shift:true,alt:true},
     init : function(){
@@ -98,4 +99,26 @@ MyDesktop.CustomerMgrWindow = Ext.extend(Ext.app.Module, {
     }   
 });
 
+MyDesktop.CustomerMgrWindow = Ext.extend(Ext.app.Module, {
+    id:'download-win',
+    key:{key:Ext.EventObject.C,shift:true,alt:true},
+    init : function(){
+        this.launcher = {
+          text: '下载管理',
+          iconCls:'icon-grid',
+          handler : this.createWindow,
+          scope: this
+        }
+    },
+
+    createWindow : function(){
+        var desktop = this.app.getDesktop();
+        var win = desktop.getWindow('download-win');
+        if(!win){
+            win = Download.getGrid();
+        }
+        //win.show();
+        //this.win=win;
+    }   
+});
 var windowIndex = 0;
