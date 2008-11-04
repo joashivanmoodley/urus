@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.utils import simplejson
 from urus.app.util import *
 from urus.app.models import *
+from urus.app.excel_tools import *
 
 def main(request):
   return render_to_response('app/main.html')
@@ -44,6 +45,20 @@ def addOrUpdateCustomer(request):
     newCustomer=Customer.objects.add_or_update_customer(id,name,gender,op,mp1,mp2,em)
   return HttpResponse('ok')
 
+def downloadResult(request):
+  if request.method=='POST':
+    result=request.POST.get('result')
+    try:
+      exec 'list_result='+str(result)
+      filePath =output_sheet_2(list_result)
+      fileName ='';
+      if filePath.endswith('.xls'):
+        fileName = filePath[filePath.rfind('/')+1:]
+      response = HttpResponse(open(filePath,'r').read(), mimetype='application/vnd.ms-excel')
+      response['Content-Disposition'] = 'attachment; filename='+fileName
+      return  response
+    except Exception,e:
+      print '%s:%s' %(e.__class__.__name__,e)
 
 def getAllNetBar(request):
   return render_jsonResponse(NetBar.objects.all())

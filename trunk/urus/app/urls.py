@@ -15,6 +15,7 @@ urlpatterns = patterns('urus.app.views',
     
     (r'getAllNetBar/$','getAllNetBar'),
     (r'addOrUpdateNetbar/$','addOrUpdateNetbar'),
+    (r'downloadResult','downloadResult'),
     
     #for test url
     
