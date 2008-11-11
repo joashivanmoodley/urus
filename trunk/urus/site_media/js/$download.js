@@ -37,7 +37,6 @@ var getWin=function(id,titleText,config){
 
 downloadResult=function(){
     para={};
-	alert('begin');
     para.result=Ext.get('new-query_result').getValue();
 	if (para.result =='')
 	{
@@ -46,9 +45,7 @@ downloadResult=function(){
 	}
 	//creat a iframe to this download page.
     var iframe = document.createElement("iframe");
-	alert(para.result);
     iframe.src = "downloadResult?result=" + para.result;
-	alert(iframe.src);
     iframe.style.display = "none";
     document.body.appendChild(iframe); 
   }
