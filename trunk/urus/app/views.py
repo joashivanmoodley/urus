@@ -46,8 +46,8 @@ def addOrUpdateCustomer(request):
   return HttpResponse('ok')
 
 def downloadResult(request):
-  if request.method=='POST':
-    result=request.POST.get('result')
+  if request.method=='GET':
+    result=request.GET.get('result')
     try:
       exec 'list_result='+str(result)
       filePath =output_sheet_2(list_result)
@@ -59,6 +59,7 @@ def downloadResult(request):
       return  response
     except Exception,e:
       print '%s:%s' %(e.__class__.__name__,e)
+      return HttpResponse('fail')
 
 def getAllNetBar(request):
   return render_jsonResponse(NetBar.objects.all())
