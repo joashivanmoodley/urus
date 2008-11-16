@@ -1,0 +1,35 @@
+======================
+URUS System OverView
+======================
+Goal
+----
+Help advertising company to manager their customers (both netbar and gaming company).
+
+Functionality
+-------------
+- Manage netbar information.
+- Manage agent information.
+- Manage gaming company information.
+- Generate reports for netbar, agent and gaming comapny
+
+Functionality Details
+---------------------
+
+Manage Netbar:
+
+- Maintain Netbar basic information include *name,shot_name,company,location,owner,tel,mobile_phone,scale,enable*.
+- Maintain Netbar finance data for report(monthly report) and other useage.
+
+
+Manage Agent:
+
+- Maintain agent basic information include *name,location,tel,mobile_phone,title,enbale*.
+- Maintain the relationship between agent and Netbar.
+- Maintain the finance data for the agent for monthly report and the graph report is the advanced.
+
+Manage Gaming Company:
+
+- Maintain comapy basic information include *name,location,tel,fex,enable*.
+- Maintain game advertisement object include *name,start_date,expire_date,scale,fee*.
+- Maintain the relationship between agent and gaming company.
+- Generate monthly report for gaming company. 
