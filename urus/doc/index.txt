@@ -10,3 +10,10 @@ System OverView
    
    overview
 
+DataModel Specification
+=======================
+
+.. toctree::
+    :maxdepth: 1
+    
+    datamodels

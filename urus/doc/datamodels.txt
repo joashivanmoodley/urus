@@ -1,0 +1,8 @@
+DataModel Specification
+=============================
+
+Customer
+--------
+
+table name:
+  URUS_CUSTOMER
