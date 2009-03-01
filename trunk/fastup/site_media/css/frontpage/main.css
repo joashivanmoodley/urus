@@ -28,9 +28,9 @@ h3 {font-size:120%; line-height:100%; font-weight:bold;}
 h4 {font-size:120%;}
 h5 {font-size:100%;}
 
-table {display:table; border-collapse:collapse; margin:15px 0; padding:0; border:1px solid #B7CAF6; font-size:100%;}
+table {display:table; border-collapse:collapse; margin:15px 0; padding:0; border:0px solid #B7CAF6; font-size:100%;}
 tr {display:table-row;}
-th, td {display: table-cell; border:1px solid #B7CAF6; margin:0; padding:5px; vertical-align:top; text-align:left;}
+th, td {display: table-cell; border:0px solid #B7CAF6; margin:0; padding:5px; vertical-align:top; text-align:left;}
 th {background:#E7ECFD; text-align:center; color:#192666; font-weight:bold;}
 
 ul, ol {display:block; border:0; margin:15px 0 15px 40px; padding:0;}
@@ -64,7 +64,7 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
 .t-left {text-align:left;}
 .t-center {text-align:center;}
 .t-right {text-align:right;}
-
+.t-center1 {text-align:center;}
 .va-middle {vertical-align:middle;}
 
 .clear {clear:both;}
@@ -73,6 +73,11 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
 
 .nom {margin:0;}
 .noscreen {display:none;}
+
+td .left{text-align:left;}
+td .right{text-align:right;}
+
+.book {margin-left:30px;margin-bottom:10px;}
 
 /* -----------------...........--------------------------------------------------------------------------------------- */
 
@@ -189,7 +194,7 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
     #col ul#links li a:hover {background-color:#D3DFF8; color:#192666;}
 
 /* Footer */
-#footer {position:relative; clear:both; width:770px; height:60px; margin-bottom:50px; background:url("../design/footer.jpg") 0 0 no-repeat; color:#6685CC;}
+#footer {position:relative; clear:both; width:770px; height:60px; margin-bottom:50px; background:url("../design/footer_1.jpg")  100% 0% no-repeat; color:#6685CC;}
 #footer a {color:#6685CC;}
 #footer a:hover {color:#192666;}
 
@@ -200,8 +205,8 @@ code, kbd, samp {font-family:monospace; font-size:110%;}
     #top a:hover span {background:url("../design/ico_top.gif") -30px 0 no-repeat;}
 
     /*  Footer - copyright */
-    #footer p#copyright {position:absolute; top:10px; left:40px; margin:0;}
+    #footer p#copyright {position:absolute; top:-10px; left:40px; margin:0;}
 
     /* Footer - created by */
-    #createdby {position:absolute; top:10px; left:562px; margin:0; color:#8CA3D8;}
+    #createdby {position:absolute; top:-10px; left:600px; margin:0; color:#8CA3D8;}
     #createdby a {color:#8CA3D8;}
