@@ -215,7 +215,7 @@ td.right{text-align:right;}
 /* -----------------...........---------------------------RCP------------------------------------------------------------ */    
 .g-rcp .g-rcp-n{
 background-color:#F6F6F6;
-border-color:#CCCCCC #CCCCCC -moz-use-text-color;
+border-color:#CCCCCC #CCCCCC;
 border-style:solid solid none;
 border-width:1px 1px 0;
 position:relative;
@@ -273,7 +273,7 @@ font-weight:bolid;
 }
 .g-rcp .g-rcp-s{
 background-color:#BED9EC;
-border-color:-moz-use-text-color #CCCCCC #CCCCCC;
+border-color: #CCCCCC #CCCCCC;
 border-style:none solid solid;
 border-width: 0 1px 1px;
 position: relative;
