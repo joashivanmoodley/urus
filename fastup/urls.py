@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     # (r'^admin/(.*)', admin.site.root),
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_PATH}),
     (r'^$','apps.frontpage.views.index'),
+    (r'^test/',include('apps.tests.urls')),
 )
