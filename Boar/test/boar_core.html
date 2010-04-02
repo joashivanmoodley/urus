@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Windows (vers 14 February 2006), see www.w3.org" />
+<title></title>
+<script src="../boar_core.js"></script>
+<script>
+  Boar.load(['testframework','WImage']);
+</script>
+<script>
+  function adjuestImage(){
+    var WIDTH=8,HEIGHT=11;
+    var img=new Image();
+    var imgSrc="http://printvalet.hpl.hp.com:9090/PrintValetRender/RenderServlet?result=0&url=http%3A%2F%2Fwww.sina.com.cn&type=3";
+    img.src=imgSrc;
+    img.onload=function(){
+      var w=img.width,h=img.height;
+      if(w>h){
+        var adjustH=Math.floor(8*h/w);
+        img.height=adjustH+'in'; 
+        img.width='8in'; 
+      }else{
+        var adjustW=Math.floor(11*w/h);
+        img.width=adjustW+'in';
+        img.height='11in';
+      }
+      alert(img.width+' : '+img.height);
+    };
+  
+  }
+
+  function testCopy(){
+    var c1=function(){return true;}
+    var c2=function(){return false;}
+    
+    var t1=new Boar.TestCase('Boar.Widget.Panel','display',c1);
+    var t3=new Boar.TestCase('Boar.Widget.Panel','Show',c1);
+    var t2=new Boar.TestCase('Boar.Widget.DebugTool','Debug',c2);
+    var a=new Boar.TestSuite();
+    a.add(t1).add(t2).add(t3);
+    a.run();
+  }
+
+</script>
+</head>
+<body onload='testCopy();'>
+  
+</body>
+</html>
