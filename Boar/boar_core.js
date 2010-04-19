@@ -8,6 +8,10 @@ Boar.WidgetPath='widgets/';
 Boar.Core={
 	version:0.1,
 	loadedLibs:{},
+	dwn:function(s){
+		s = s || 'null';
+	//	document.body.write(s+'</br>');
+	},
 	/**
 	*Merge prototype from source to target.
 	*/
@@ -65,7 +69,11 @@ Boar.Libs={
     'dependency':['utils','dom'],
     'pathJS':'boar_panel.js',
     'pathCSS':'boar_panel.css'
-  }
+  },
+	'event':{
+    'dependency':[],
+    'pathJS':'boar_event.js'
+	}
 }
 
 
