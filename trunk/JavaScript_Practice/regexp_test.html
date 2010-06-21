@@ -1,0 +1,16 @@
+<html>
+	<body>
+	</body>
+	<script>
+		function dwm(s){
+			s = s || '';
+			document.write(s+'</br>');
+		}
+		(function(){
+			var str = "c:\\work\\JavaScript_Pratice\\";	
+			dwm(str);
+			var _str=str.replace(/\\/g,'/');
+			dwm(_str);
+		})()
+	</script>
+</html>

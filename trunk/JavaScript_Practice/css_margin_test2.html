@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>code.js.cn</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body,html{
+    margin:10px auto;
+}
+.google {color:red;}
+</style>
+<style>
+	body{
+		margin : 0 auto;
+	}
+</style>
+</head>
+<body>
+<div class="google">DEMO</div>
+</body>
+<script type="text/javascript">
+//<![CDATA[
+function getSelectorStyle(selector,style){
+    var css = document.styleSheets[0].cssRules || document.styleSheets[0].rules;
+    for(var i=0,l=css.length;i<l;i++){
+        var name=css[i].selectorText.toLowerCase();
+        if(name.indexOf(selector)+1)
+            return css[i].style[style];
+    }
+};
+function style(el,style){
+    if(el.style[style])return el.style[style];
+    var cur=el.currentStyle, other = cur || document.defaultView.getComputedStyle(el, null);
+    return other[style]
+};
+alert(getSelectorStyle('body','margin'));
+alert(style(document.body,'marginLeft'));//FF0px
+ //]]>
+</script>
+</html>
+

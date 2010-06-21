@@ -1,0 +1,38 @@
+<html>
+	<body>
+	</body>
+	<script>
+		var persons = [1,3,6,8,12];
+		var totalTime = 30;
+		var stack =[];
+		var currentOpt =[];
+		var costTime = 0;
+		function calc(fromArray,toArray,isA2B){
+			// end condition
+			if(fromArray.length == 2){
+				costTime += fromArray[0] > fromArray[1] ? parseInt(fromArray[0]) : parseInt(fromArray[1]);
+				alert('cost time' + costTime);
+			}else{
+				//pick up 2 
+				var opt1 = parseInt(fromArray.splice(0,1));
+				var opt2 = parseInt(fromArray.splice(0,1));
+				costTime += opt1 > opt2 ? opt1 : opt2;
+				toArray.push(opt1);
+				toArray.push(opt2);
+				calc(toArray,fromArray,false);
+				calc(fromArray,toArray,true);
+			}
+
+
+		}
+		function move(){
+			var stackA = stackB = [];
+			var isSuccess = false;
+			var optPosition = 0;
+			stackA = persons;
+			calc(persons,[],true);	
+			
+		};
+		move();
+	</script>
+</html>

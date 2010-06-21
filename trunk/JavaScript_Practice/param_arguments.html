@@ -1,0 +1,35 @@
+<html>
+	<head>
+	</head>
+	<body>
+	</body>
+		<script>
+			function dwn(s){
+				document.write(s+'<br/>');
+			}
+			(function(){
+				var va = 10, vb=true;
+				var ra = [1,2,3,4], rb = {x:1,y:2};
+
+				function valueTypes(x,y){
+					x++;
+					y=false;
+					dwn(x);
+					dwn(y);
+				}
+
+				function referTypes(x,y){
+					x.push(4);
+					delete y.x;
+					dwn(x);
+					dwn(y.x);
+				}
+				valueTypes(va,vb);
+				dwn(va);
+				dwn(vb);
+				referTypes(ra,rb);
+				dwn(ra);
+				dwn(rb.x);
+			})();	
+		</script>
+</html>

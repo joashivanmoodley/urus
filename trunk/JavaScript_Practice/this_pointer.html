@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<script>
+			function dwn(s){
+				document.write(s+"<br/>");	
+			}
+			function Chart(){
+				this.version='0.1';
+				this.description='This is Chart description';
+				window._name='ABC';
+				dwn('in Chart -> '+this.version);
+				//Rend方法体内的this与Chart
+				this.Render=function(){
+					dwn('in Render -> '+this.version);
+					GetData();
+				};	
+				//GetData方法体内的this与Chart不一致,这个this指向window对象
+				var GetData=function(){
+					dwn('in GetData -> '+ this.version);
+					dwn('in GetData -> ' + this._name);
+				}
+				
+			}
+			//这里的this指针指向的是Chart
+			Chart.prototype.Reload=function(){
+				dwn('in Reload -> '+ this.version);		
+			};
+
+
+
+			function Foo(){
+				if(this.constructor == arguments.callee){
+					dwn('Object created');	
+				}
+				else	if(this == window){
+					dwn('Normal call');				
+				}else{
+					dwn('called by '+this.constructor);	
+				}
+
+			}
+
+
+
+			function Base(){
+				this.Foo=function(){return 10;}
+				this.Bar=function(){dwn(this.Foo()+10);}
+			}
+			// 继承Base
+			function Drivide(){
+				this.Foo = function(){
+					return 20;
+				}
+			}
+
+			Drivide.prototype = new Base();
+
+
+			(function(){
+				var a= new Chart;
+				a.Render();
+				a.Reload();
+				Foo();
+				Foo.call(new Object());
+				new Foo();
+
+				dwn('------------------');
+				var d = new Drivide();
+				// 这里返回的是30，原因是this指针指向的是Drivide
+				d.Bar();
+			})();
+
+		</script>	
+	</head>
+  <body></body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+	<head>
+	</head>
+	<body>
+	</body>
+	<script>
+		function now(){
+			return (new Date).getTime();	
+		}
+		function dwm(s){
+			s = s || '';
+			if(console.log){
+				console.log(now() + '  ' + s);
+			}
+		}
+		function TimerCtrl (handler,interval){
+			var t = this;
+			t.interval = interval || -1;
+			t.handler = handler || function(){};
+			t.timer = null;
+			t.run = function(){
+				alert(t.interval);
+				if(t.interval > -1){
+					t.timer = setInterval(t.handler,t.interval);
+				}
+			};
+			t.change = function(interval){
+				t.interval = interval;
+				if(t.timer){
+					clearInterval(t.timer);
+				}
+				t.run();
+			};
+			t.stop = function(){
+				if(t.timer){
+					clearInterval(t.timer);
+				}
+			};
+		}
+
+
+		(function(){
+			function normalHandler(){
+				dwm('in process...');
+			}		
+			var tc = new TimerCtrl(normalHandler,5000);
+			tc.run();
+			tc.change(500);	
+			setTimeout(function(){tc.stop();},10000);
+
+		})();
+	</script>
+</html>

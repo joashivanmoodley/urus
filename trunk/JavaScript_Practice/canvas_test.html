@@ -1,0 +1,17 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<canvas id='canvas_1'></canvas>
+	</body>
+	<script>
+		(function(){
+			var c1 = document.getElementById('canvas_1');	
+			var ctx = c1.getContext('2d');
+			c1.setAttribute('width','400');
+			c1.setAttribute('height','300');
+			ctx.fillStyle = '#FF0000';
+			ctx.fillRect(0,0,50,50);
+		})();
+	</script>
+</html>
