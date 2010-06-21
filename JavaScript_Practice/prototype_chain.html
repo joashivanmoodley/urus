@@ -1,0 +1,38 @@
+<html>
+	<head>
+	</head>
+	<body>
+	</body>
+	<script>
+		function dwn(s){
+			s = s || 'null';
+			document.write(s+'</br>');
+		}
+
+		Object.prototype.hi = function(){
+			dwn('Object.prototype.hi');	
+		};
+		Object.prototype.greetings = function(){
+			dwn('Object.prototype.greetings');
+		};
+		Function.prototype.greetings = function(){
+			dwn('function.prototype.greetings');
+		};
+		var CF = function(){};
+		CF.prototype.hello = function(){
+			dwn('CF.prototype.hello');
+		};
+		CF.prototype.bye= function(){
+			dwn('CF.prototype.bye');	
+		};
+	
+		var o = new CF();
+		o.hello = function(){dwn('o.hello');};
+		o.hello();
+		o.bye();
+		o.hi();
+		o.greetings();
+		CF.hi();
+		CF.greetings();
+	</script>
+</html>

@@ -1,0 +1,85 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<div id = 'mark_div'></div>
+		<div id = 'sel_1'>sel_1</div>
+		<div id = 'sel_2'>sel_2</div>
+		<div id = 'sel_3'>sel_3</div>
+	</body>
+	<script>
+		(function(){
+	    var el = document.getElementById('mark_div');
+			var _H = 4000;
+			var _W = document.body.offsetWidth;
+			var _SW = 1000,_SH = 3000;
+			_W = 4000;
+
+			el.style.width = _W+'px';
+			el.style.height = _H+'px';
+			el.style.position = 'absolute';
+			el.style.left = '0px';
+			el.style.top = '0px';
+			el.style.backgroundColor = '#000000';
+			el.style.filter = 'Alpha(Opacity=6)';
+
+
+			var sel_1 = document.getElementById('sel_1');
+			var st = sel_1.style;
+			st.width = _SW+'px';
+			st.height = _SH+'px';
+			st.position = 'absolute';
+			st.zIndex = 100;
+			st.left = '1px';
+			st.top = '1px';
+			st.backgroundColor = 'red';
+			st.filter = 'Alpha(Opacity=6)';
+
+			var sel_2 = document.getElementById('sel_2');
+			var st = sel_2.style;
+			st.width = _SW+'px';
+			st.height = _SH+'px';
+			st.position = 'absolute';
+			st.zIndex = 100;
+			st.left = (_SW+20)+'px';
+			st.top = '1px';
+			st.backgroundColor = 'red';
+			st.filter = 'Alpha(Opacity=6)';
+
+
+
+			var sel_3 = document.getElementById('sel_3');
+			var st = sel_3.style;
+			st.width = _SW+'px';
+			st.height = _SH+'px';
+			st.position = 'absolute';
+			st.zIndex = 100;
+			st.left = ((_SW*2)+40)+'px';
+			st.top = '1px';
+			st.backgroundColor = 'red';
+			st.filter = 'Alpha(Opacity=6)';
+
+			var internalFunc = function(){
+		    //_H += 1000;
+			  el.style.height = _H+'px';
+				_SH += 2000;
+				sel_1.style.height =_SH+'px'; 
+				sel_2.style.height =_SH+'px'; 
+				sel_3.style.height =_SH+'px'; 
+			};
+			var iter = setInterval(function(){
+		    var res = confirm('Is Dark');	
+				if(!res){
+					internalFunc();
+				}else{
+				   alert(_W+','+_H + ' : '+_SW+','+_SH);
+           clearInterval(iter); 
+				}
+			},500);
+			window.onresize = function(){
+	      var el = document.getElementById('mark_div');
+			  var _W = window.availableWidth;
+			};
+		})();	
+	</script>
+</html>

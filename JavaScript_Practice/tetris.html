@@ -1,0 +1,509 @@
+<html>
+	<head>
+		<title>Tetris</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function makeArray(){
+			var ret =[],i=0;
+			for ( ; i < arguments.length; i++){
+				ret.push(arguments[i]);
+			}
+			return ret;
+		}
+
+		(function(){
+			var doc = document
+			,uid=0
+			,size = 20 
+			,curShape=undefined
+			,playPanel
+			,playRaw =15 
+			,playCol = 25 
+			,leftEdge = 100
+			,topEdge = 30
+			,playMatrix
+			,baseZindex = 2147483100
+			,bgZindex = baseZindex + 1
+			,curShapeZindex = bgZindex + 1
+			,isEnd = false
+			,baseImage = '../imgs/cube_x_20_20.png'
+			,bgImage = '../imgs/playpanelbg_300_500.jpg'
+			,processor;
+
+			var shapeA = makeArray([1,1,0],[0,1,1]);
+			var shapeB = makeArray([1,1],[0,1],[0,1]);
+			var shapeC = makeArray([0,1,0],[1,1,1]);
+			var shapeD = makeArray([1,1],[1,1]);
+			var shapeE = makeArray([1],[1],[1],[1]);
+			var shapeF = makeArray([0,1,1],[1,1,0]);
+			var shapeG = makeArray([1,1],[1,0],[1,0]);
+			var shapes =[shapeA,shapeB,shapeC,shapeD,shapeE,shapeF,shapeG];
+			var images =['blue','green','grey','purple','red','yellow'];
+
+
+
+			var DelayProcessor = function(){
+			var stack=[],isStart=false,timer = startHandler = endHandler = undefined,scope = this,stackSize = 5,intervalFrequency = 10,isNeedStack = false;
+			var run = function(){
+					if(startHandler && stack.length > 0 && isNeedStack){
+						startHandler.call(scope,stack.shift());
+					}else{
+						startHandler.call(scope);
+					}
+				};
+
+				/**
+				 * @param {Function} handlerFunc 
+				 * @param {int} size 
+				 */
+				this.start = function(handlerFunc,size,frequencey){
+					startHandler = handlerFunc || undefined;
+					isStart = true;
+					stackSize = size || stackSize;
+					intervalFrequency = frequencey || intervalFrequency;
+					if(!timer){
+						timer = setInterval(run,intervalFrequency);
+					}
+				};
+
+				this.stop = function(handlerFunc){
+					endHandler = handlerFunc || undefined;
+					isStart = false;
+					stack = [];
+					if(timer){
+						clearInterval(timer);
+					}
+					timer =undefined;
+					endHandler ? endHandler.call(scope) : null;
+				};
+				this.push = function(obj){
+					if( isStart && obj && stack.length < stackSize){
+						stack.push(obj);
+					}
+				};
+			};
+
+			var getRandomImage = function(){
+				var ret = baseImage,color = images[parseInt(Math.random() * 6)];
+				return ret.replace('x',color);
+			};
+			var getRandomColor = function(){
+				var ret = '#';
+				for (var i = 0 ; i < 6; i++){
+					ret += parseInt(Math.random()*10);
+				}
+				return ret; 
+			};
+
+			var setDefaultStyle = function(el){
+				if(!el){
+					return;
+				}
+				var st = el.style;
+				st.position = 'absolute';
+			};
+
+			var addEventListener = function(obj,type,fn){
+				if(arguments.length < 3 ){
+					return;
+				}
+				if(obj.attachEvent){
+					obj.attachEvent('on'+type,fn);
+				}else if (obj.addEventListener){
+					obj.addEventListener(type,fn,false);
+				}else{
+					obj['on'+type] = fn;
+				}
+			};
+
+			var createNode = function(type){
+				var ret = doc.createElement(type);
+				ret.id = 'node_'+ uid++;
+				setDefaultStyle(ret);
+				return ret;
+			};
+
+			var drawShape = function(shape,isNew){
+				isNew = isNew || false;
+				if(!curShape){
+					curShape ={};
+					curShape.releatedElem = createNode('div');
+					curShape.releatedElem.style.zIndex = curShapeZindex;
+					curShape.matrix = shape;
+					playPanel.appendChild(curShape.releatedElem);
+				}else{
+					if(!canChange() && !isNew){
+						return;
+					}
+					curShape.matrix = shape;
+					var elm = curShape.releatedElem;
+					while(elm.firstChild){
+						elm.removeChild(elm.firstChild);
+					}
+				}
+				if(isNew){
+					curShape.releatedElem.style.left = (parseInt(playRaw/2 - 1) * size  ) + 'px';
+					curShape.releatedElem.style.top = '0px';
+					curShape.colIndex = 0;
+					curShape.img = getRandomImage();
+					curShape.rawIndex = parseInt(playRaw/2 -1);
+				}
+				var i=j=0,raw,tmp,tmpNode,st,color = getRandomColor(),img=curShape.img;
+				if(shape && shape instanceof Array){
+					for ( ; i < shape.length;i++){
+						raw = shape[i];
+						for ( j = 0; j < raw.length;j++){
+							tmp = raw[j];
+							if(tmp > 0){
+								tmpNode = createNode('div');
+								st = tmpNode.style;
+								st.top = (i * size) + 'px';
+								st.left = (j * size) + 'px';
+								st.width = (size-2) + 'px';
+								st.height = (size-2) + 'px';
+								st.backgroundImage = 'url(' + img+')';
+								//st.border = '1px solid black';
+								curShape.releatedElem.appendChild(tmpNode);
+							}
+						}
+					}
+				}	
+			};
+
+			var drawPlayPanel = function(m,n){
+				var w,h,st;
+				w = playRaw * size;
+				h = playCol * size;
+				if(!playPanel){
+					playPanel = createNode('div');
+					st = playPanel.style;
+					st.left = leftEdge + 'px';
+					st.right = topEdge + 'px';
+					st.width = w + 'px';
+					st.height = h + 'px';
+					st.border = '1px solid red';
+					st.zIndex = baseZindex;
+					st.backgroundImage = 'url(' + bgImage + ')';
+					doc.body.appendChild(playPanel);
+				}
+
+			};
+
+			var changeShape = function(){
+				if(curShape){
+					var matrix = curShape.matrix,m,n,i,j,raw;
+					m = matrix.length;
+					n = matrix[0].length;
+					var newMatrix = [];
+					for( i =  0; i < n; i++){
+						raw =[];
+						for ( j = m - 1 ; j >= 0; j--){
+							raw.push(matrix[j][i]);
+						}
+						newMatrix.push(raw);
+					}
+					drawShape(newMatrix);
+				}
+			};
+
+			var canChange = function(){
+				var ret = true;
+				var lp = curShape.releatedElem.style.left;
+				var maxLeft = (playRaw - curShape.matrix.length) * size;
+				lp = parseInt(lp.substr(0,lp.length - 2));
+				if(lp > maxLeft ){
+					ret = false;
+				}
+				var tp =curShape.releatedElem.style.top;
+				tp = parseInt(tp.substr(0,tp.length-2));
+				var maxTop = (playCol - getBelowMatrix()) * size;
+				if( tp + curShape.matrix[0].length * size > maxTop ){
+					ret = false;
+				}
+				return ret;
+			};
+
+			var moveLeft = function(){
+				var lp = curShape.releatedElem.style.left;
+				lp = parseInt(lp.substr(0,lp.length - 2));
+				if(!canMoveLeft() ){
+					return;
+				}
+				lp = lp - size;
+				curShape.rawIndex -=1;
+				curShape.releatedElem.style.left = lp + 'px';
+			};
+
+			var moveRight = function(){
+				var lp = curShape.releatedElem.style.left;
+				var maxLeft = (playRaw - curShape.matrix[0].length) * size;
+				lp = parseInt(lp.substr(0,lp.length - 2));
+				if(!canMoveRight()){
+					return;
+				}
+				lp = lp + size;
+				curShape.rawIndex +=1;
+				curShape.releatedElem.style.left = lp + 'px';
+			};
+			var getBelowMatrix = function(){
+				return 0;
+			};
+
+			var doClear = function(raw){
+				var i,j;
+				for ( i = 0; i < playRaw; i++){
+					for (j = raw ; j > 0 ;j--){
+						playMatrix[j][i].occupied = playMatrix[j-1][i].occupied;
+						playMatrix[j][i].elm.style.backgroundImage = playMatrix[j-1][i].elm.style.backgroundImage;
+					}
+				}
+				
+			};
+
+			var clearRaw = function(){
+				var n = playMatrix.length,m=playMatrix[0].length,i=0,count;
+				for (i = n-1 ; i >= 0; i--){
+					count = 0;
+					for ( j =0; j < m; j++){
+						count += playMatrix[i][j].occupied === false ? 0 : 1;
+					}
+					if(count === playRaw){
+						//clean
+						doClear(i);
+						i++;
+					}
+					if(count === 0){
+						break;
+					}
+				}
+
+			};
+
+			var freezen = function(){
+				var m,n,optMatrix,optMatrixRaw,optMatrixCol,i,j,st,color,seed;
+				m = curShape.rawIndex;
+				n = curShape.colIndex;
+				color = curShape.releatedElem.style.backgroundColor;
+				optMatrix = curShape.matrix;
+				optMatrixCol = optMatrix.length;
+				optMatrixRaw = optMatrix[0].length;
+				for ( i = 0; i < optMatrixCol; i++){
+					for ( j =0; j < optMatrixRaw; j++){
+						if(optMatrix[i][j] > 0){
+							playMatrix[n+i][m+j].elm.style.backgroundImage ='url('+curShape.img+')';
+							playMatrix[n+i][m+j].occupied = true;
+						}
+					}
+				}
+			};
+			var startNew = function(){
+				var seed = parseInt((Math.random() * 7));
+				clearRaw();
+				drawShape(shapes[seed],true);
+				return true;
+			};
+			var canMoveLeft = function(){
+				var ret = true,m,n,optMatrix,optMatrixRaw,optMatrixCol,i,j;
+				optMatrix = curShape.matrix;
+				m = curShape.rawIndex;
+				n = curShape.colIndex;
+				optMatrixCol = optMatrix.length;
+				optMatrixRaw = optMatrix[0].length;
+				if(m === 0){
+					ret = false;
+				}
+				if(ret){
+					for( i =0; i < optMatrixCol; i++){
+						j=0;
+						for ( j =0 ; j< optMatrixRaw; j++){
+							if ( optMatrix[i][j] > 0){
+								if(playMatrix[n+i][m+j-1].occupied ===true){
+									ret = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+				return ret;
+			};
+
+			var canMoveRight = function(){
+				var ret = true,m,n,optMatrix,optMatrixRaw,optMatrixCol,i,j;
+				optMatrix = curShape.matrix;
+				m = curShape.rawIndex;
+				n = curShape.colIndex;
+				optMatrixCol = optMatrix.length;
+				optMatrixRaw = optMatrix[0].length;
+				if(m + optMatrixRaw + 1 > playRaw){
+					ret = false;
+				}
+				if(ret){
+					for( i =0; i < optMatrixCol; i++){
+						for( j = 0; j< optMatrixRaw; j++){
+							if(optMatrix[i][optMatrixRaw - j - 1] > 0){
+								if(playMatrix[n+i][m+optMatrixRaw-j].occupied === true){
+									ret = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+				return ret;
+			};
+
+			var canMoveDown = function(){
+				var ret = true,m,n,optMatrix,optMatrixRaw,optMatrixCol,i,j;
+				optMatrix = curShape.matrix;
+				m = curShape.rawIndex;
+				n = curShape.colIndex;
+				optMatrixCol = optMatrix.length;
+				optMatrixRaw = optMatrix[0].length;
+				if(n + optMatrixCol+1 > playCol){
+					ret = false;
+				}
+				if(ret){
+					for ( i = 0 ; i < optMatrixRaw; i++){
+						for ( j =0; j < optMatrixCol ; j++){
+							if(optMatrix[optMatrixCol-1-j][i] > 0){
+								if(playMatrix[n+optMatrixCol-j][m+i].occupied ===true){
+									ret =false;
+									break;
+								}
+							}
+						}
+					}
+				}
+				if(!ret && n ===0){
+					isEnd = true;
+				}
+				return ret;
+			};
+
+			var doGamveOver = function(){
+				var a = window.confirm('Gamve over restart ?');
+				if(a){
+					restart();
+				}else{
+					processor.stop();
+				}
+			};
+
+			var moveDown = function(){
+				if(!canMoveDown()){
+					if(isEnd){
+						doGamveOver();
+						return true;
+					}
+					freezen();
+					return startNew();
+				}
+				var h = curShape.matrix.length * size;
+				var tp =curShape.releatedElem.style.top;
+				tp = parseInt(tp.substr(0,tp.length-2));
+				tp += size;
+				curShape.colIndex += 1;
+				curShape.releatedElem.style.top= tp + 'px';
+				return false;
+			};
+
+			var fastMoveDown = function(){
+					var flag = false;
+					while(!flag){
+						flag = moveDown();
+					}
+			};
+
+			var keyDownHandler = function(evt){
+				evt = evt || window.event;
+				key = evt.keyCode || evt.which;
+				switch (key){
+					case 38:
+						changeShape();
+						break;
+					case 32:
+						changeShape();
+						break;
+					case 37:
+						moveLeft();
+						break;
+					case 39:
+						moveRight();
+						break;
+					case 40:
+						fastMoveDown();
+						break;
+				}
+				if(key === 32 || key === 38){
+					//change shape
+					//TODO
+				}
+				
+			};
+			var keyUpHandler = function(evt){
+				evt = evt || window.event;
+				key = evt.keyCode || evt.which;
+			};
+
+			var makePlayMatrix = function(){
+				var i=j=0,raw,tmpNode,st,data;
+				playMatrix = [];
+
+				for ( ; i < playCol ; i++){
+					raw = [];
+					for ( j = 0 ; j < playRaw ; j++){
+						data ={};
+						tmpNode = createNode('div');
+						st = tmpNode.style;
+						st.top = i * size + 'px';
+						st.left = j * size + 'px';
+						st.width = (size-2) + 'px';
+						st.height = (size-2) + 'px';
+						st.border = '1px solid #f1f1f1';
+						//st.backgroundColor = 'transparent';
+						st.backgroundColor = '#FFFFFF';
+						playPanel.appendChild(tmpNode)
+						data.elm = tmpNode;
+						data.occupied = false;
+						raw.push(data);
+					}
+					playMatrix.push(raw);
+				}
+			};
+			var cleanPlayMatrix = function(){
+				var m,n,i,j;
+				m = playMatrix[0].length;
+				n = playMatrix.length;
+				for ( i = 0 ; i < m ; i++){
+					for ( j = 0 ; j < n ; j++){
+						playMatrix[j][i].occupied = false;
+						//playMatrix[j][i].elm.style.backgroundColor = 'transparent';
+						playMatrix[j][i].elm.style.backgroundColor = '#FFFFFF';
+						playMatrix[j][i].elm.style.backgroundImage = 'none';
+					}
+				}
+
+			};
+
+			var restart = function(){
+				isEnd = false;
+				drawShape(shapes[parseInt(Math.random()*7)],true);
+				cleanPlayMatrix();	
+			};
+
+			var init = function(){
+				addEventListener(doc,'keydown',keyDownHandler);
+				addEventListener(doc,'keyup',keyUpHandler);
+				drawPlayPanel(20,30);
+				makePlayMatrix();
+				drawShape(shapes[parseInt(Math.random()*7)],true);
+				processor = new DelayProcessor();
+				processor.start(moveDown,0,500);
+			}
+			init();
+		})();
+	</script>
+</html>

@@ -1,0 +1,25 @@
+<html>
+	<body></body>
+	<script>
+		function dwn(s){
+			document.write(s+'</br>');
+		}
+		(function(){
+			var _arr=[];
+			var _obj={};
+			var t1 = (new Date).getTime();
+			for(var i=0;i<10000;i++){
+				_arr.push(''+i);
+				_obj[''+i]=i;
+			}
+			var t2 = (new Date).getTime();
+			dwn('create array and object cost   ' + (t2-t1));
+			//loop array
+			for(var j=0; j<10000;j++){
+				
+			}
+
+			
+		})();
+	</script>
+</html>

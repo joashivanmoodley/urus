@@ -1,0 +1,39 @@
+<html>
+	<head>
+	</head>
+	<body style='wdith:100%;height:100%'>
+			
+	</body>
+	<script>
+		(function(){
+			
+					
+			var strHtml="<div id = 'id_tips' style='width:auto; height:18px'><span style='left:3px'>&nbsp</span><font  color='#000000'>This is tips this is tips</font></div>";
+			document.body.innerHTML=strHtml;
+			var tipsDiv=document.getElementById('id_tips');
+			var st = tipsDiv.style;
+			st.position = 'absolute';
+			st.border ='1px solid #606060';
+			var mouseCoords = function(ev){
+			 	if(ev.pageX||ev.pageY){return {x:ev.pageX, y:ev.pageY};}
+		 		return {x:ev.clientX + document.body.scrollLeft-document.body.clientLeft,y:ev.clientY + document.body.scrollTop-document.body.clientTop};
+			}
+			var func=function(e){
+				if(e==null || e==undefined){
+					alert('event is null');
+				}
+				var mp=mouseCoords(e);
+				var mpx=mp.x,mpy=mp.y;
+				var st = tipsDiv.style;
+				if(mpx+tipsDiv.offsetWidth > document.body.offsetWidth + 10){
+					mpx= document.body.offsetWidth-tipsDiv.offsetWidth+10; 
+				}
+				st.left= mpx + 5;
+				st.top = mpy + 5;
+				
+				
+			};
+			document.body.addEventListener('mousemove',func,false);				
+		})();
+	</script>
+</html>

@@ -1,0 +1,146 @@
+<html>
+	<head>
+		<title>Tetris</title>
+	</head>
+	<body>
+		<div id= 'trtris_panel'> </div>
+	</body>
+	<script>
+		var shapeA = makeArray([1,1,0],[0,1,1]);
+		var shapeB = makeArray([1,1],[0,1],[0,1]);
+		var shapeC = makeArray([0,1,0],[1,1,1]);
+		var shapeD = makeArray([1,1],[1,1]);
+		var shapeE = makeArray([1],[1],[1],[1]);
+		function makeArray(){
+			var ret =[],i=0;
+			for ( ; i < arguments.length; i++){
+				ret.push(arguments[i]);
+			}
+			return ret;
+		}
+
+		(function(){
+			var doc = document,uid=0,size = 8,curShape=undefined;
+			window.$ = this;
+
+			var setDefaultStyle = function(el){
+				if(!el){
+					return;
+				}
+				var st = el.style;
+				st.position = 'absolute';
+			};
+
+			var addEventListener = function(obj,type,fn){
+				if(arguments.length < 3 ){
+					return;
+				}
+				if(obj.attachEvent){
+					obj.attachEvent('on'+type,fn);
+				}else if (obj.addEventListener){
+					obj.addEventListener(type,fn,false);
+				}else{
+					obj['on'+type] = fn;
+				}
+			};
+
+			var createNode = function(type){
+				var ret = doc.createElement(type);
+				ret.id = 'node_'+ uid++;
+				setDefaultStyle(ret);
+				return ret;
+			};
+
+			var drawShape = function(shape){
+				if(!curShape){
+					curShape ={};
+					curShape.releatedElem = createNode('div');
+					curShape.matrix = shape;
+					doc.body.appendChild(curShape.releatedElem);
+				}else{
+					curShape.matrix = shape;
+					var elm = curShape.releatedElem;
+					while(elm.firstChild){
+						elm.removeChild(elm.firstChild);
+					}
+				}
+				var i=j=0,raw,tmp,tmpNode,st;
+				if(shape && shape instanceof Array){
+					for ( ; i < shape.length;i++){
+						raw = shape[i];
+						for ( j = 0; j < raw.length;j++){
+							tmp = raw[j];
+							if(tmp > 0){
+								tmpNode = createNode('div');
+								st = tmpNode.style;
+								st.top = (i * size) + 'px';
+								st.left = (j * size) + 'px';
+								st.width = size + 'px';
+								st.height = size + 'px';
+								st.backgroundColor = '#666666';
+								curShape.releatedElem.appendChild(tmpNode);
+							}
+						}
+					}
+				}	
+			};
+
+			var changeShape = function(){
+				if(curShape){
+					console.log('change shape...');
+					var matrix = curShape.matrix,m,n,i,j,raw;
+					m = matrix.length;
+					n = matrix[0].length;
+					var newMatrix = [];
+					for( i =  0; i < n; i++){
+						raw =[];
+						for ( j = m - 1 ; j >= 0; j--){
+							raw.push(matrix[j][i]);
+						}
+						newMatrix.push(raw);
+					}
+					drawShape(newMatrix);
+				}
+			};
+
+			var keyDownHandler = function(evt){
+				evt = evt || window.event;
+				key = evt.keyCode || evt.which;
+				switch (key){
+					case 38:
+						changeShape();
+						break;
+					case 32:
+						changeShape();
+						break;
+						break;
+					case 37:
+						console.log('move left');
+						break;
+					case 39:
+						console.log('move right');
+						break;
+					case 40:
+						console.log('move down');
+						break;
+				}
+				if(key === 32 || key === 38){
+					//change shape
+					//TODO
+				}
+				
+			};
+			var keyUpHandler = function(evt){
+				evt = evt || window.event;
+				key = evt.keyCode || evt.which;
+			};
+
+			var init = function(){
+				addEventListener(doc,'keydown',keyDownHandler);
+				addEventListener(doc,'keyup',keyUpHandler);
+			}
+			init();
+			drawShape(shapeD);
+		})();
+	</script>
+</html>

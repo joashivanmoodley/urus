@@ -1,0 +1,21 @@
+<html>
+	<body>
+	</body>
+	<script>
+		function dwm(s){
+			s = s || '';
+			document.write(s + '</br>');
+		}
+		Array.prototype.each = function(closure){
+			return this.length ? [closure(this.slice(0,1))].concat(this.slice(1).each(closure)) : [];
+		};
+		(function(){
+			var a = [1,2,3,4];
+			var b = a.each(function(x){return x*2;});
+			var c = a.each(function(x){return 'something_'+x;});
+			dwm(a);
+			dwm(b);
+			dwm(c);
+		})();
+	</script>
+</html>
