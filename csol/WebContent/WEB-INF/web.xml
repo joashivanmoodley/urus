@@ -14,7 +14,7 @@
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>pushlet</servlet-name>
-		<servlet-class>nl.justobjects.pushlet.servlet.Pushlet</servlet-class>
+		<servlet-class>com.handle.csol.servlet.PlushletSvr</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
