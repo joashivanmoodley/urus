@@ -63,34 +63,9 @@ public class LoginSvr extends HttpServlet implements Protocol {
 		String userName;
 		userName = (String) req.getParameter(Constants.LOGIN_FIELD_USER_NAME);
 		userName = (String) req.getParameter(Constants.LOGIN_FIELD_USER_NAME);
-		Logger.getLogger(this.getClass()).info(
-				"customer service " + userName + " login ");
-		Map<String, String> properties = new HashMap<String, String>();
-		properties.put(Protocol.P_SUBJECT, userName + "_chart");
-		Event event = new Event(Protocol.E_JOIN_LISTEN);
-		//create char session
-		Session session = null;
-		session = SessionManager.getInstance().createSession(event);
-		Logger.getLogger(this.getClass()).info("do command ...");
-		if (session == null) {
-			resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					"No id specified");
-			Log.warn("Pushlet: bad request, no id specified event=" + resp);
-			return;
-		}
-		String userAgent = req.getHeader("User-Agent");
-		if (userAgent != null) {
-			userAgent = userAgent.toLowerCase();
-		} else {
-			userAgent = "unknown";
-		}
-		session.setUserAgent(userAgent);
-		Command command = Command.create(session, event, req,
-				resp);
-		Logger.getLogger(this.getClass()).info("do command1 ...");
-		session.getController().doCommand(command);
-		Logger.getLogger(this.getClass()).info("do command2 ...");
-		resp.sendRedirect(Constants.CHART_ROOM_PAGE);
+		Logger.getLogger(this.getClass()).info("CS  "+ userName);
+		resp.setHeader(Constants.CS_ID, userName);
+		resp.sendRedirect(Constants.DASHBOARD_PAGE+"?s="+userName);
 	}
 
 	@Override
