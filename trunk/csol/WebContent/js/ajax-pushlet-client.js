@@ -271,6 +271,7 @@ var PL = {
 				}
 			}
 		}
+		PL.webRoot = PL.webRoot == null ? "" : PL.webRoot;
 		return PL.webRoot;
 	},
 
