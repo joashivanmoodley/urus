@@ -4,7 +4,9 @@ public class Constants {;
 	
 	public final static String LOGIN_PAGE="login.html";
 	
-	public final static String DASHBOARD_PAGE = "csdashboard.html";
+	public final static String DASHBOARD_PAGE = "dashboard.html";
+	
+	public final static String CS_DASHBOARD_PAGE = "csdashboard.html";
 	
 	public final static String ERROR_PAGE = "error.html";
 	
@@ -15,6 +17,12 @@ public class Constants {;
 	
 	public final static String 	CS_ID = "cs_id";
 	
+	public final static String CHAT_SUFFIX = "_chat";
+	
+	
+	public final static String S_ACTION = "s_act";
+	
+	public final static String S_QUERY_SUBJECT = "1";
 
 
 	
