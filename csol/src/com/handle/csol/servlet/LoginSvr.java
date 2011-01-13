@@ -20,6 +20,7 @@ import nl.justobjects.pushlet.util.PushletException;
 
 import org.apache.log4j.Logger;
 
+import com.handle.csol.core.CsSubjectMgr;
 import com.handle.csol.utils.Constants;
 
 public class LoginSvr extends HttpServlet implements Protocol {
@@ -39,7 +40,6 @@ public class LoginSvr extends HttpServlet implements Protocol {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String userName, userPwd;
 		// check if login submit.
 		try {
 			if (null != req.getParameter(Constants.LOGIN_FIELD_USER_NAME)) {
@@ -58,13 +58,19 @@ public class LoginSvr extends HttpServlet implements Protocol {
 
 	}
 
+	/**
+	 * @param req
+	 * @param resp
+	 * @throws Exception
+	 */
 	private void createChart(HttpServletRequest req, HttpServletResponse resp)
-			throws PushletException, IOException {
-		String userName;
+			throws Exception {
+		String userName,userPwd;
 		userName = (String) req.getParameter(Constants.LOGIN_FIELD_USER_NAME);
-		userName = (String) req.getParameter(Constants.LOGIN_FIELD_USER_NAME);
+		userPwd = (String) req.getParameter(Constants.LOGIN_FIELD_USER_NAME);
 		Logger.getLogger(this.getClass()).info("CS  "+ userName);
 		resp.setHeader(Constants.CS_ID, userName);
+		CsSubjectMgr.getInstance().addSubject(userName+Constants.CHAT_SUFFIX,userName);
 		resp.sendRedirect(Constants.DASHBOARD_PAGE+"?s="+userName);
 	}
 
