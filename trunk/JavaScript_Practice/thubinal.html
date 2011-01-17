@@ -1,0 +1,73 @@
+<html>
+<head>
+<script type="text/javascript" src="./jquery-1.4.2.js"></script>
+<script>
+String.format = function(src){
+  if (arguments.length == 0) return null;
+  var args = Array.prototype.slice.call(arguments, 1);
+  return src.replace(/\{(\d+)\}/g, function(m, i){
+      return args[i];
+      });
+}
+</script>
+<style>
+.thumb-wrapper{
+width:50px;
+height:50px;
+border:1px solid gray;
+       text-align:center;
+overflow:hidden;
+cursor:pointer;
+}
+div.thumb-wrapper:hover {
+  background-color:red;
+}  
+.thumb-wrapper span{
+  font-size:9px;
+}
+</style>
+</head>
+<body>
+<div id = 'grally'>
+</div>
+</body>
+<script>
+var UUID = {
+id : 0,
+     nextId : function(){
+       return this.id++;
+     }
+};
+function BThumbnail(pNode,cfg){
+  this.pNode = pNode ? $('#'+pNode) : document.body;
+  this.cfg = cfg ? cfg : {};
+  this.id = 'thumbnail-'+UUID.nextId();
+  this.createDom();
+  this.root = $('#'+this.id);
+  this.bindEvent();
+};
+
+BThumbnail.prototype ={
+createDom:function(){
+            var _str= "<div id = '{0}' class = 'thumb-wrapper'><span>{1}</span></div>";
+            var _innerHtml = String.format(_str,this.id,this.cfg[0]);
+            this.pNode.append(_innerHtml);
+          },
+bindEvent:function(){
+            this.root.bind('click',this.switchSubject);
+          },
+switchSubject:function(){
+                alert('switch subject');
+              }
+}
+
+
+
+
+
+window.onload = function(){
+  var el = new BThumbnail('grally',{'name':'HHHH'});
+}
+
+</script>
+</html>
