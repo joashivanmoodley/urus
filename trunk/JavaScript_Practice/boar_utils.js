@@ -64,3 +64,24 @@ Boar.InterValProcessor = function(processhandler, destoryHandler, intervalFreque
 	};
 };
 
+/**
+ * Example: Boar.strformat('My name is {0} and {1} year old','handle','10')
+ */
+Boar.StringFormat = function(src) {
+	if (arguments.length == 0)
+		return null;
+	var args = Array.prototype.slice.call(arguments, 1);
+	return src.replace(/\{(\d+)\}/g, function(m, i) {
+		return args[i];
+	});
+}
+
+/**
+ * @description This is a ID generation factory always return the next ID.
+ * @returns {Integer} nextID
+ */
+Boar._nextID = 0;
+Boar.NextId = function(prefix){
+  prefix = prefix ? prefix+'-' : '';
+  return prefix+Boar._nextID++;
+}
