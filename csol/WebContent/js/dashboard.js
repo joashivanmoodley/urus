@@ -8,7 +8,7 @@ window.onload = function() {
 	nick = getPageParameter('s', 'anon');
 	subject = nick + '_chat';
 	enterChat();
-	//bind event
+	// bind event
 	$('#ipt-msg').bind('keypress', sendMsg);
 }
 
@@ -26,15 +26,16 @@ function onData() {
 	var action = event.get('action');
 	var msg = event.get('msg');
 	var nick = event.get('nick');
-	if(action == 'enter'){
+	if (action == 'enter') {
 		doEnter(nick);
 	}
 	console.log('event type ==> ' + action + ',' + nick + ',' + msg);
 }
 
-function doEnter(nick){
+function doEnter(nick) {
 
-	var str = "<div id = 'c-"+nick+"' class = 'customer-div'>"+nick+"</div>";
+	var str = "<div id = 'c-" + nick + "' class = 'customer-div'>" + nick
+			+ "</div>";
 	$('#customer-list').append(str);
 }
 
@@ -43,3 +44,25 @@ function enterChat() {
 	p_publish(subject, 'action', 'enter', 'nick', nick);
 }
 
+function BThumbnail(pNode, cfg) {
+	this.pNode = pNode ? $('#' + pNode) : document.body;
+	this.cfg = cfg ? cfg : {};
+	this.id = 'thumbnail-' + UUID.nextId();
+	this.createDom();
+	this.root = $('#' + this.id);
+	this.bindEvent();
+};
+
+BThumbnail.prototype = {
+	createDom : function() {
+		var _str = "<div id = '{0}' class = 'thumb-wrapper'><span>{1}</span></div>";
+		var _innerHtml = String.format(_str, this.id, this.cfg[0]);
+		this.pNode.append(_innerHtml);
+	},
+	bindEvent : function() {
+		this.root.bind('click', this.switchSubject);
+	},
+	switchSubject : function() {
+		alert('switch subject');
+	}
+}

@@ -3,34 +3,48 @@
 
 // Creates a fixed size pop-up window without status, scroll/toolbars
 function openBareWindow(id, url, width, height) {
-   window.open(url,id, "status=no,resizable=no,scrollbars=no,toolbar=no,WIDTH="+width+",HEIGHT="+height)
+	window.open(url, id,
+			"status=no,resizable=no,scrollbars=no,toolbar=no,WIDTH=" + width
+					+ ",HEIGHT=" + height)
 }
 
-// Creates a fixed size full screen scrollable window without status, scroll/toolbars
+// Creates a fixed size full screen scrollable window without status,
+// scroll/toolbars
 function openBareFullscreenWindow(id, url) {
-   window.open(url, id, "status=no,resizable=yes,scrollbars=yes,toolbar=no,HEIGHT="+screen.height-20+",WIDTH="+screen.width)
+	window.open(url, id,
+			"status=no,resizable=yes,scrollbars=yes,toolbar=no,HEIGHT="
+					+ screen.height - 20 + ",WIDTH=" + screen.width)
 }
 
 // Creates a fixed size pop-up window without status, toolbars but with scroll.
 function openBareScrollingWindow(id, url, width, height) {
-   window.open(url,id, "status=no,resizable=no,scrollbars=yes,toolbar=no,WIDTH="+width+",HEIGHT="+height)
+	window.open(url, id,
+			"status=no,resizable=no,scrollbars=yes,toolbar=no,WIDTH=" + width
+					+ ",HEIGHT=" + height)
 }
 
 // Returns a blank HTML page with the specified color
 function blankPage(color) {
-	return "<HTML><HEAD><META HTTP-EQUIV='Pragma' CONTENT='no-cache'></HEAD><BODY BGCOLOR="+color+"></BODY></HTML>"
+	return "<HTML><HEAD><META HTTP-EQUIV='Pragma' CONTENT='no-cache'></HEAD><BODY BGCOLOR="
+			+ color + "></BODY></HTML>"
 }
 
 // Parse parameter out of a string.
 function getParameter(string, parm, delim) {
-     // returns value of parm from string
-     if (string.length == 0) {return '';}
-	 var sPos = string.indexOf(parm + "=");
-     if (sPos == -1) {return '';}
-     sPos = sPos + parm.length + 1;
-     var ePos = string.indexOf(delim, sPos);
-     if (ePos == -1) {ePos = string.length;}
-     return unescape(string.substring(sPos, ePos));
+	// returns value of parm from string
+	if (string.length == 0) {
+		return '';
+	}
+	var sPos = string.indexOf(parm + "=");
+	if (sPos == -1) {
+		return '';
+	}
+	sPos = sPos + parm.length + 1;
+	var ePos = string.indexOf(delim, sPos);
+	if (ePos == -1) {
+		ePos = string.length;
+	}
+	return unescape(string.substring(sPos, ePos));
 }
 
 // Get parameter from query string passed to my page
@@ -43,16 +57,31 @@ function getPageParameter(parameterName, defaultValue) {
 	if ((s == null) || (s.length < 1)) {
 		s = defaultValue;
 	}
-	return s;	
+	return s;
 }
 
+String.format = function(src) {
+	if (arguments.length == 0)
+		return null;
+	var args = Array.prototype.slice.call(arguments, 1);
+	return src.replace(/\{(\d+)\}/g, function(m, i) {
+		return args[i];
+	});
+}
+
+var UUID = {
+	id : 0,
+	nextId : function() {
+		return this.id++;
+	}
+};
+
 /*
- * $Log: util.js,v $
- * Revision 1.4  2005/01/19 22:27:47  justb
- * v2 improvements examples
- *
- * Revision 1.3  2003/08/15 08:39:01  justb
- * fix/add copyright + LGPL in file headers
- *
- *
+ * $Log: util.js,v $ Revision 1.4 2005/01/19 22:27:47 justb v2 improvements
+ * examples
+ * 
+ * Revision 1.3 2003/08/15 08:39:01 justb fix/add copyright + LGPL in file
+ * headers
+ * 
+ * 
  */
