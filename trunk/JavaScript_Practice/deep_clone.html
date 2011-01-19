@@ -1,0 +1,60 @@
+<html>
+<head>
+</head>
+<body>
+</body>
+<script>
+(function(){
+
+   var a ={
+		foo: { test: 1, test1: 2 },
+   	bar   : function(x) { alert(x) },
+   	foobar: 'foobar1',
+   	arr   : [1, [8, 9], {1: 1, 2: 2}, 4]
+};
+ 
+var c = a;
+c.foobar = 'new test';
+alert(a.foobar);
+ 
+function clone_obj(obj) {
+    if (typeof obj !== 'object' || obj == null) {
+        return obj;
+    }
+ 
+    var c = obj instanceof Array ? [] : {};
+ 
+    for (var i in obj) {
+        var prop = obj[i];
+ 
+        if (typeof prop == 'object') {
+           if (prop instanceof Array) {
+               c[i] = [];
+ 
+               for (var j = 0; j < prop.length; j++) {
+                   if (typeof prop[j] != 'object') {
+                       c[i].push(prop[j]);
+                   } else {
+                       c[i].push(clone_obj(prop[j]));
+                   }
+               }
+           } else {
+               c[i] = clone_obj(prop);
+           }
+        } else {
+           c[i] = prop;
+        }
+    }
+ 
+    return c;
+}
+var b = clone_obj(a);
+b.foobar = 'aaa';
+b.arr=[1];
+b.bar = function(x){alert(2*x);};
+a.bar(1);
+b.bar(1);
+
+ })();
+</script>
+</html>
