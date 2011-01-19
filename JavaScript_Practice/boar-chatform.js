@@ -18,7 +18,8 @@ function BChatForm(pNode, cfg) {
 	this.prefix = 'chatform';
 	this.id = Boar.NextId(this.prefix);
 	this.cfg = cfg ? cfg: {};
-  this.rootMsg = undefined;
+	this.rootMsg = undefined;
+	this.msgDispDiv = undefined;
 	this.createDom();
 	this.bindEvent();
 }
@@ -31,7 +32,8 @@ BChatForm.prototype = {
 		var _str = " <div id = '{0}' class = 'chat-form-wrapper'> <div class = 'chat-form-title'></div> <div class = 'chat-form-msg-display-area'><ul></ul></div> <div class = 'chat-form-msg-ipt-area'> <input id = '{1}'></input> </div> </div>";
 		var _innerHTML = Boar.StringFormat(_str, this.id, this.id + '-ipt');
 		this.pNode.append(_innerHTML);
-    this.rootMsg = $('.chat-form-msg-display-area ul');
+		this.rootMsg = $('.chat-form-msg-display-area ul');
+		this.msgDispDiv = $('.chat-form-msg-display-area');
 
 	},
 	/**
@@ -51,16 +53,21 @@ BChatForm.prototype = {
 			this.updateMsg(_self.value);
 			_self.value = '';
 			_self.focus();
+			this.msgDispDiv[0].scrollTop = this.msgDispDiv[0].scrollHeight;
 		}
 	},
 	updateMsg: function(msg) {
 		//do 
-    var _s = document.createElement('li');
-    _s.innerHTML ='<span>'+ msg+'</span>';
-    this.rootMsg.append(_s);
-    this._afterUpdateMsg();
+		var _s = document.createElement('li');
+		_s.innerHTML = msg;
+		var _msg = {
+			from: 'Handle',
+			timestamp: new Date(),
+			message: msg
+		};
+		this.rootMsg.append(_s);
+		this._afterUpdateMsg();
 	},
-	_afterUpdateMsg: function() {
-	}
+	_afterUpdateMsg: function() {}
 }
 

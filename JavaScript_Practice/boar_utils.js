@@ -68,8 +68,7 @@ Boar.InterValProcessor = function(processhandler, destoryHandler, intervalFreque
  * Example: Boar.strformat('My name is {0} and {1} year old','handle','10')
  */
 Boar.StringFormat = function(src) {
-	if (arguments.length == 0)
-		return null;
+	if (arguments.length == 0) return null;
 	var args = Array.prototype.slice.call(arguments, 1);
 	return src.replace(/\{(\d+)\}/g, function(m, i) {
 		return args[i];
@@ -81,7 +80,24 @@ Boar.StringFormat = function(src) {
  * @returns {Integer} nextID
  */
 Boar._nextID = 0;
-Boar.NextId = function(prefix){
-  prefix = prefix ? prefix+'-' : '';
-  return prefix+Boar._nextID++;
+Boar.NextId = function(prefix) {
+	prefix = prefix ? prefix + '-': '';
+	return prefix + Boar._nextID++;
 }
+/**
+ * Marge from target to source.Just a reference copy
+ */
+Boar.Marge = function(target, source) {
+  target = target ? target : {};
+	if (!source || source.length == 0) {
+		return target;
+	}
+	for (
+	for p in source) {
+		if (!target[p]) {
+			target[p] = source[p];
+		}
+	}
+	return target;
+}
+
