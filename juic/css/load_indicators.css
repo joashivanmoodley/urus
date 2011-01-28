@@ -1,0 +1,79 @@
+/* --- BEGIN Loading-indicators styles --- */
+.loading_indicator {
+  position: absolute;
+  float: right;
+  right: 110px;
+  margin-top: 2px;
+  *margin-top: 3px;
+  font-size: 11px; /* Fixed */
+  color: #999;
+  top: 95px;
+}
+
+.loading_indicator .sysmsg {
+  opacity: .9;
+  filter: alpha(opacity=90);
+  white-space: nowrap;
+}
+
+.loading_indicator .sysmsg dd.img, .loading_indicator span.img {
+  height: 16px;
+  width: 16px;
+  margin: -2px 0 0;
+  background: transparent url(/ui/uicore/img/icon_loading.gif) no-repeat;
+}
+
+.loading_indicator .sysmsg dd.msg {
+  margin-left: 22px;
+  _margin-left: 18px; /* IE6 */
+  color: #000;
+  min-height: 1%;
+  *height: 1%;
+}
+
+.loading_indicator .sysmsg dl {
+  padding: 0 35px;
+}
+
+.loading_indicator_layout_static {
+  vertical-align: middle;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.loading_indicator_layout {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+  *display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.loading_indicator_layout strong {
+  *position: relative;
+  *top: 45%;
+}
+
+.icon_loading {
+  padding-left: 18px;
+  background: url(/ui/uicore/img/icon_loading.gif) no-repeat;
+  *zoom: 1;
+}
+
+span.icon_loading {
+  height: 16px;
+  width: 16px;
+  padding-right: 16px;
+}
+
+/* used to cover hambun meat when there is a background process */
+.transparent_mask { 
+  opacity: .7;
+  filter: alpha(opacity=70);
+  background-color: #fff;	
+}
+/* --- END Loading-Indicators */

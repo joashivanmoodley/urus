@@ -165,7 +165,7 @@ public class PlushletSvr extends HttpServlet implements Protocol {
 		// Must have valid event type.
 		String eventType = anEvent.getEventType();
 		if (!eventType.equals("refresh")) {
-			Logger.getLogger(this.getClass()).debug("do request " + eventType);
+			Logger.getLogger(this.getClass()).debug("do request " + eventType+"  - "+anEvent.getField("action"));
 		}
 
 		try {

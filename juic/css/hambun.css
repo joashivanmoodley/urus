@@ -1,0 +1,73 @@
+html,body {
+  height:100%; /* Set to 100% of the viewport. Normally set at height of content */
+  padding:0;
+  margin:0;
+  font:normal 85% "Trebuchet MS",Arial,Helvetica,sans-serif;
+  text-align:center;
+}
+body {
+  background:url(/ui/static/img/express/background_tile.jpg) -500px -100px repeat-x;
+  background-color:#D8DADC;
+  text-align:center;
+}
+a {
+  color:blue;
+  text-decoration:none;
+}
+a:hover {
+  text-decoration:underline;
+}
+.hb_main {
+  position:absolute;
+  width:950px;
+  height:100%;
+  margin:0 auto;
+  background:url(/ui/static/img/express/mainpanel_tile.png) 0 0 repeat-y;
+  text-align:center;
+}
+
+.hb_topnav {
+  height:40px;
+  background:url(/ui/static/img/express/express_logo_med.png) no-repeat;
+  background-color:#FFF;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/static/img/express/express_logo_med.png',sizingMethod='crop');
+}
+.hb_topnav_home {
+  background:url(/ui/static/img/express/express_logo_lg.gif) no-repeat;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/static/img/express/express_logo_lg.gif',sizingMethod='crop');
+  height:40px;
+  background-color:#FFF;
+}
+
+.hb_head {
+  position:relative;
+  height:13px;
+  background:url(/ui/static/img/express/mainpanel_home_cap.png) 0 0 no-repeat;
+  filter:progid:DXImageTransform.Microsoft.thAlphaImageLoader(src='/ui/static/img/express/mainpanel_home_cap.png',sizingMethod='crop');
+  margin-bottom:-1px;
+}
+.hb_body {
+  text-align:left;
+  width:99%;
+  position:relative;
+}
+
+.hb_foot_w {
+  position:absolute;
+  bottom:0px;
+}
+
+.hb_foot {
+  height:54px;
+  width:950px;
+  margin: 0 auto;
+  background:url(/ui/static/img/express/mainpanel_bottom_cap.png) 100% 0 no-repeat;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/static/img/express/mainpanel_bottom_cap.png',sizingMethod='crop');
+  overflow: hidden;
+}
+.hb_pane {
+  margin-left:1em;
+  /*margin-right:1em;     */
+  width:97%; /* This is a good compromise width without having to go to conditional comments */
+  overflow:hidden;
+}
