@@ -1,0 +1,96 @@
+/* ***********************************************************************
+ * $Id: sfmeter.css 121245 2011-01-08 20:53:17Z jminnich $
+ * ******************************************************************** */
+
+
+.sfMeterCont {
+  width: 130px;
+  clear: right;
+}
+
+.sfMeterGrn {
+  background: url(/ui/uicore/img/meter_ready.png);
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/uicore/img/meter_ready.png',sizingMethod='crop');
+}
+
+.sfMeterYlw {
+  background: url(/ui/uicore/img/meter_half_ready.png);
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/uicore/img/meter_half_ready.png',sizingMethod='crop');
+}
+
+.sfMeterRed {
+  background: url(/ui/uicore/img/meter_not_ready.png);
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/uicore/img/meter_not_ready.png',sizingMethod='crop');
+}
+
+.sfMeterNone {
+  background: url(/ui/uicore/img/meter_no_calculate.png);
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ui/uicore/img/meter_no_calculate.png',sizingMethod='crop');
+}
+
+.sfMeterGrn, .sfMeterYlw, .sfMeterRed, .sfMeterNone {
+  float: left;
+  width: 46px;
+  height: 82px;
+  background-repeat: no-repeat;
+  text-align: center;
+  *background-image: none;
+}
+
+.sfMeterTicks {
+  position: relative;
+  width: 10px;
+  margin: 0 auto;
+}
+
+.sfMeterTickGrn, .sfMeterTickYlw, .sfMeterTickRed {
+  position: absolute;
+  font-size: 2px;
+  height: 3px;
+  width: 10px;
+  left: -1px;
+}
+
+.sfMeterTickGrn {
+  background: #6f9f0f;
+}
+
+.sfMeterTickYlw {
+  background: #c90;
+}
+
+.sfMeterTickRed {
+  background: #c00;
+}
+
+.sfMeterSmText {
+  font:bold 13px Verdana, Arial, Helvetica, sans-serif;
+}
+
+.sfMeterTextGrn, .sfMeterTextYlw, .sfMeterTextRed {
+  position: relative;
+  left: -9px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 1px;
+}
+
+.sfMeterTextGrn {
+  color: #6f9f0f;
+}
+
+.sfMeterTextYlw {
+  color: #c90;
+}
+
+.sfMeterTextRed {
+  color: #c00;
+}
+
+.clr {
+  clear: both;
+  height: 1px;
+  font-size: 1px;
+  overflow: hidden;
+  margin-top: -1px;
+}

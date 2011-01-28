@@ -1,0 +1,21 @@
+
+.sfComboRaterDefault {list-style-type:none;padding:0;margin:0;clear:right;font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  font-variant: normal;
+  text-transform: none;
+  text-decoration: none;
+  text-indent: 3px;
+  cursor: pointer;
+}
+.sfComboRaterDefault li {float:left;width:15px;line-height:20px;height:20px;background-image : url(/ui/uicore/img/rater_box.gif);}
+.sfComboRaterDefault li.empty {background-position: 0px -00px; color:#FFFFFF}
+.sfComboRaterDefault li.full {background-position: 0px -60px; color: #FFFFFF}
+.sfComboRaterDefault li.rollover {background-position: 0px -30px; color:#315273}
+.sfComboRaterDefault li.inactiveEmpty {background-position: 0px -90px; color: #FFFFFF ; cursor: default}
+.sfComboRaterDefault li.inactiveFull {background-position: 0px -120px; color: #FFFFFF ; cursor: default}
+
+.sfRateMessage {font:normal .7em "Trebuchet MS",Arial,Helvetica,sans-serif}
+.clr {clear:both;height:1px;margin-top:-1px;font-size:1px;line-height:1px;overflow:hidden;}
+
